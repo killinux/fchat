@@ -1,0 +1,127 @@
+<!--[if IE 8]>         <html class="no-js lt-ie9"> </html><![endif]-->
+<!--[if gt IE 8]><!--> 
+<!DOCTYPE html>
+<html  ng-app='app' > <!--<![endif]-->
+<head>
+<meta charset="utf-8" />
+<title>face</title>
+<meta name="description" content="neil-hao" />
+<meta name="author" content="neil-hao" />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0" /><!--手机自动缩放-->
+<link rel="shortcut icon" href="img/favicon.ico" /><!--网页标题图标-->
+<!-- 引入 PROUI 的样式表  不用更改它的设置-->
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="css/plugins.css" />
+<link rel="stylesheet" type="text/css" href="css/main.css" />
+<link rel="stylesheet" type="text/css" href="css/themes.css" />
+<!-- PROUI 样式结束-->
+
+<script src="node_modules/jquery/dist/jquery.js"></script>
+<script src="node_modules/angular/angular.js"></script>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style>
+.nav.navbar-nav-custom>li.open>a,.nav.navbar-nav-custom>li>a:focus,.nav.navbar-nav-custom>li>a:hover{background:none;}
+</style>
+</head>
+<body style=" background:#FFFFF0; margin:0; padding:0; padding-bottom:55px">
+
+<div 
+	chat-body>
+</div>
+  
+<!--底边菜单-->
+<chat-footer 
+	highlighted='fchat'
+ 	>
+ </chat-footer >
+<script>
+angular.module('app', [])
+.controller('footController',function($scope,$document,$rootScope){
+		angular.element(document.querySelector('#'+$scope.highlighted)).css('color','#33CC00');	
+		$rootScope.showScreen($scope.highlighted);//屏幕显示	
+})
+.directive('chatContent', [function(){
+	return {
+		templateUrl: 'tmpl/content.html',
+		restrict: "A",
+		replace: true,
+		controller: ['$scope', '$document','$element', '$attrs',function($scope,$document,$element,$attrs){
+			$scope.items=[
+				 {picture:'6.jpg',title:'hello',date:'早上09:56',newmsg:'true',content:'hello a day begin'}
+				,{picture:'hahaha.jpg',title:'工作群',date:'早上11:26',newmsg:'false',content:'他说又加需求'}
+				,{picture:'6.jpg',title:'活动',date:'早上12:16',newmsg:'true',content:'出去玩吧，好久没出去了。'}
+			];	
+		}],
+		link: function(scope, element, attrs){	
+		}
+	};
+}])
+.directive('chatUsers', [function(){
+	return {
+		templateUrl: 'tmpl/users.html',
+		restrict: "A",
+		replace: true,
+		link: function(scope, element, attrs){	
+			scope.users=[
+				 {picture:'hahaha.jpg',title:'张三'}
+				,{picture:'hahaha.jpg',title:'李四'}
+				,{picture:'hahaha.jpg',title:'马大'}
+			];	
+		}
+	};
+}])
+.directive('chatBody', [function(){
+	return {
+		templateUrl: 'tmpl/body.html',
+		restrict: "A",
+		replace: true,
+		controller: ['$scope', '$document','$rootScope',function($scope,$document,$rootScope){
+			// angular.forEach($document.find('a'),function(node){
+			// 	console.log(node.id);
+	  //           if(node.id == $scope.name){
+	  //               node.style="color:#33CC00";
+	  //           }
+	//          })
+		}],
+		link: function(scope, element, attrs){	
+		}
+	};
+}])
+.directive('chatFooter', ['$rootScope',function($rootScope){ //从这里传入$rootScope
+	return {
+		//require:"hellochat",
+		templateUrl: 'tmpl/footer.html',
+		restrict: "E",
+		replace: true,
+		scope: {
+			highlighted: '@',
+		},
+		controller: 'footController',
+		link: function(scope, element, attrs){//这里不能用rootScope
+			element.find('a').on('click', function(e){
+				scope.highlighted=e.currentTarget.id;
+				element.find('a').css('color','#999999');
+				angular.element(document.querySelector('#'+scope.highlighted)).css('color','#33CC00');//底层菜单
+				$rootScope.showScreen(scope.highlighted);
+				/*$rootScope.$apply(function(){
+					$rootScope.showDiv=e.currentTarget.id;
+				})*/
+			})
+		}
+	};
+}])
+.run(['$rootScope', function($rootScope){//全局
+	$rootScope.showScreen = function(sdiv){//屏幕显示
+		angular.element(document.querySelector('#fchat-div')).css('display','none');
+		angular.element(document.querySelector('#users-div')).css('display','none');
+		angular.element(document.querySelector('#discover-div')).css('display','none');
+		angular.element(document.querySelector('#myself-div')).css('display','none');
+		angular.element(document.querySelector('#'+sdiv+'-div')).css('display','block');
+	};
+}])
+</script>
+</body>
+</html> 
+      
