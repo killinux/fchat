@@ -31,13 +31,9 @@ ul li {
 <script src="libs/Animated_GIF.js" type="text/javascript"></script>
 <script src="videoShooter.js" type="text/javascript"></script>
 
-<script type="text/javascript" src="../face/js/jquery-browser.js"></script>
-<script type="text/javascript" src="../face/js/jquery.qqFace.js"></script>
+<script type="text/javascript" src="./face/js/jquery-browser.js"></script>
+<script type="text/javascript" src="./face/js/jquery.qqFace.js"></script>
 
-<%
-String uid=request.getParameter("uid");
-String mid=request.getParameter("mid");
-%>
 <script type="text/javascript">
 $(function(){
     //$('.emotion').qqFace({
@@ -45,7 +41,7 @@ $(function(){
         id : 'facebox', 
         //assign:'saytext', 
         assign:'input-pj-text', 
-        path:'../face/arclist/' //表情存放的路径
+        path:'./face/arclist/' //表情存放的路径
     });
     $(".sub_btn").click(function(){
         var str = $("#saytext").val();
@@ -56,22 +52,22 @@ function replace_em(str){
     str = str.replace(/\</g,'&lt;');
     str = str.replace(/\>/g,'&gt;');
     str = str.replace(/\n/g,'<br/>');
-    str = str.replace(/\[em_([0-9]*)\]/g,'<img src="../face/arclist/$1.gif" border="0" />');
+    str = str.replace(/\[em_([0-9]*)\]/g,'<img src="./face/arclist/$1.gif" border="0" />');
     return str;
 }
 function biaoqing_hi(){
 $("#face_div").css("height","240px");
 }
-/*function getQueryString(name) {
+function getQueryString(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
     var r = window.location.search.substr(1).match(reg);
     if (r != null) return unescape(r[2]); return null;
-}*/
+}
 
 var ws = null;
-var myname ='<%=mid%>';//'<%//=request.getSession().getAttribute("username")%>';//getQueryString("uid");// "haohao";
+var myname =getQueryString('mid');
 console.log("mid:"+myname);
-var yourname = '<%=uid%>';//"zhy";//"<%=uid%>";//"zhy";
+var yourname = getQueryString('uid');//"zhy";//"<%=uid%>";//"zhy";
 console.log("toUser:"+yourname);
 function log(text) {
 	console.log(text);

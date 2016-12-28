@@ -39,8 +39,8 @@
 <script>
 angular.module('app', [])
 .controller('footController',function($scope,$document,$rootScope){
-		angular.element(document.querySelector('#'+$scope.highlighted)).css('color','#33CC00');	
-		$rootScope.showScreen($scope.highlighted);//屏幕显示	
+		angular.element(document.querySelector('#'+$rootScope.selectScreen)).css('color','#33CC00');	
+		$rootScope.showScreen($rootScope.selectScreen);//屏幕显示	
 })
 .directive('chatContent', [function(){
 	return {
@@ -49,9 +49,9 @@ angular.module('app', [])
 		replace: true,
 		controller: ['$scope', '$document','$element', '$attrs',function($scope,$document,$element,$attrs){
 			$scope.items=[
-				 {picture:'6.jpg',title:'hello',date:'早上09:56',newmsg:'true',content:'hello a day begin'}
-				,{picture:'hahaha.jpg',title:'工作群',date:'早上11:26',newmsg:'false',content:'他说又加需求'}
-				,{picture:'6.jpg',title:'活动',date:'早上12:16',newmsg:'true',content:'出去玩吧，好久没出去了。'}
+				 {uname:'haoba',picture:'6.jpg',title:'hello',date:'早上09:56',newmsg:'true',content:'hello a day begin'}
+				,{uname:'mashengxi',picture:'hahaha.jpg',title:'工作群',date:'早上11:26',newmsg:'false',content:'他说又加需求'}
+				,{uname:'hahaha',picture:'6.jpg',title:'活动',date:'早上12:16',newmsg:'true',content:'出去玩吧，好久没出去了。'}
 			];	
 		}],
 		link: function(scope, element, attrs){	
@@ -65,9 +65,9 @@ angular.module('app', [])
 		replace: true,
 		link: function(scope, element, attrs){	
 			scope.users=[
-				 {picture:'hahaha.jpg',title:'张三'}
-				,{picture:'hahaha.jpg',title:'李四'}
-				,{picture:'hahaha.jpg',title:'马大'}
+				 {picture:'hahaha.jpg',title:'张三',uname:'haoba'}
+				,{picture:'hahaha.jpg',title:'李四',uname:'mashengxi'}
+				,{picture:'hahaha.jpg',title:'马大',uname:'hahaha'}
 			];	
 		}
 	};
@@ -95,16 +95,16 @@ angular.module('app', [])
 		templateUrl: 'tmpl/footer.html',
 		restrict: "E",
 		replace: true,
-		scope: {
+		/*scope: {
 			highlighted: '@',
-		},
+		},*/
 		controller: 'footController',
 		link: function(scope, element, attrs){//这里不能用rootScope
 			element.find('a').on('click', function(e){
-				scope.highlighted=e.currentTarget.id;
+				$rootScope.selectScreen=e.currentTarget.id;
 				element.find('a').css('color','#999999');
-				angular.element(document.querySelector('#'+scope.highlighted)).css('color','#33CC00');//底层菜单
-				$rootScope.showScreen(scope.highlighted);
+				angular.element(document.querySelector('#'+$rootScope.selectScreen)).css('color','#33CC00');//底层菜单
+				$rootScope.showScreen($rootScope.selectScreen);
 				/*$rootScope.$apply(function(){
 					$rootScope.showDiv=e.currentTarget.id;
 				})*/
@@ -120,6 +120,8 @@ angular.module('app', [])
 		angular.element(document.querySelector('#myself-div')).css('display','none');
 		angular.element(document.querySelector('#'+sdiv+'-div')).css('display','block');
 	};
+	$rootScope.myname='haoba';
+	$rootScope.selectScreen='fchat';
 }])
 </script>
 </body>

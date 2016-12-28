@@ -1,7 +1,7 @@
 <div class="row" style="padding-top:8px"  ng-repeat="item in items">  
 <!--列表循环开始-->
 	<div class="col-xs-12" style="padding-bottom:8px;" >  
-		<a href="msg.html?uid=zhy"> 
+		<a href="msg.html?uid={{item.uname}}&mid={{myname}}"> 
 			<div class="col-xs-2" >
 				<img ng-src="img/{{item.picture || '/websocketchat/chat/img/00.jpg'}} " class="widget-image image-circle" style="width:50px;height:50px; border-radius:0px"><!--for no 404-->
 			    <!--新消息气泡-->
