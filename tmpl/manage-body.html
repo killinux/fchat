@@ -4,22 +4,45 @@
 	   <i class="fa fa-frown-o"></i>
 	</div>
 	<!--没有内容的时候END-->
-	<!--消息列表cng-if="showDiv == 'fchat'"-->
+
+	<div class="row" style="padding-top:0px"  >  
+	<!--header begin-->
+		<div class="col-xs-12" style="padding-bottom:2px;background:#555555" >  
+			<a href="#">
+				<!--div class="col-xs-2" >
+					<img ng-src="img/haoba.jpg" class="widget-image image-circle" style="width:50px;height:50px; border-radius:0px">
+				</div-->    
+				<div class="col-xs-12">
+					<span class="pull-left" style="padding-left:5px; font-size:16px; color:#000000">
+						<b></b>
+						<font style="font-size:12px; color:#CCCCCC"></font>
+					</span>
+					<span class="pull-right" style="padding-top:5px; color:#CCCCCC; font-size:12px"><!--item.date--></span>
+					<br>
+					<div style="width:100%;padding-top:10px; color:#999999; padding-left:5px; font-size:14px" class="text-left"><!--item.content-->
+						<span class="pull-right">&nbsp;</span>
+					</div>	
+				</div>
+			</a>
+		</div>
+		
+		<div class="col-xs-12"><!--分界线-->
+			<hr class="text-center" width="100%;" align="center" style="border-top:thin solid #F2F2F2; padding-top:0px; margin:0px; margin-bottom:8px" >
+		</div>
+	<!--header end-->    
+	</div> 
+
+
 	<div id='fchat-div' style="display:none">
-		<div 
-			chat-content >
-		</div>
+		<div chat-content ></div>
 	</div>
-	<!--用户列表 ng-if="showDiv == 'users'" -->
 	<div id='users-div' style="display:none">
-		<div  
-			chat-users >
-		</div>
+		<div chat-users ></div>
 	</div>
 	<div id='discover-div' style="display:none">
-		<div>discover-div</div>
+		<div chat-discover ></div>
 	</div>
 	<div id='myself-div' style="display:none">
-		<div>myself-div</div>
+		<div chat-myself ></div>
 	</div>
 </div>
