@@ -7,6 +7,7 @@ public class User {
 	private String img_url;
 	private String other;
 	private String passwd;
+	private String newmsg;
 	public int getId() {
 		return id;
 	}
@@ -43,6 +44,12 @@ public class User {
 	}
 	public void setPasswd(String passwd) {
 		this.passwd = passwd;
+	}
+	public String getNewmsg() {
+		return newmsg;
+	}
+	public void setNewmsg(String newmsg) {
+		this.newmsg = newmsg;
 	}
 	
 }

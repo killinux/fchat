@@ -35,12 +35,16 @@
 
 </head>
 <body onload="startServer()" style="background:#FFFFF0; margin:0; padding:0; padding-bottom:55px">
-
-<div id='manage-div'>	<!--管理界面-->
-	<div manage-body></div>
+<div fchat-header></div>
+<div id='manage-div' >	<!--管理界面-->
+	<div manage-body style="height:680px;overflow:auto;overflow-x:hidden;"></div>
+	<!--input type="button" ng-click="loadData()"  value="测试"/>
+	<div id='fchat-div' style="display:block">
+		<div chat-content users="useritems"></div>
+	</div-->
 	<manage-footer></manage-footer>
 </div>
-<div id='message-div' style="display:none"><!--消息界面-->
+<div id='message-div' style="display:none;height:680px;overflow:auto;overflow-x:hidden;"><!--消息界面-->
  	<div msg-body></div>
 	<msg-footer></msg-footer>
  </div>

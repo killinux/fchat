@@ -38,11 +38,11 @@ function startServer() {
 	console.log("enviroment:"+navigator.userAgent);
 	var url ="ws://killinux.com:8443/websocketchat/hao/msg";
     if(window.location.href.split(":")[0]=="https"){
-        url="wss://killinux.com:80/websocketchat/hao/msg";
-        //url="wss://192.168.8.104:80/websocketchat/hao/msg";
+        //url="wss://killinux.com:80/websocketchat/hao/msg";
+        url="wss://192.168.8.104:80/websocketchat/hao/msg";
     }else{
-        url="ws://killinux.com:8080/websocketchat/hao/msg";
-        //url="ws://192.168.8.104:8080/websocketchat/hao/msg";
+        //url="ws://killinux.com:8080/websocketchat/hao/msg";
+        url="ws://192.168.8.104:8080/websocketchat/hao/msg";
     }
     console.log("websocket url:"+url);
 	//if https ,websocket is wss
@@ -61,7 +61,7 @@ function startServer() {
 	ws.onmessage = function(event) {
 		var thisdata = event.data;
 		if(thisdata.startWith("open")){
-		//	document.getElementById("username").value=thisdata.split(" ")[1];
+			//	document.getElementById("username").value=thisdata.split(" ")[1];
 		}else{
 			var showData=event.data.split("#");
 			//log(showData[0]+" say:"+showData[2]);
@@ -76,9 +76,9 @@ function startServer() {
 			}else{
 				//console.log("left");
 				if(showData[3]==undefined||""==showData[3]){
-				$("#content").append("<div><ul class='ul_talk' style='padding:0; margin:0'><li class='tbox' ><div><span class='head'><img src='img/"+window.yourname+".jpg'></span></div><div><span class='arrow'><svg><path d='M50 0 L5 19 L4 20 L5 21 L50 40 Z' stroke-width='1' stroke='#FFFFFF' fill='#FFFFFF'></path></svg></span></div><div><article class='content' style='border-radius:5px;box-shadow: -1px 4px 2px -3px #999999; margin-bottom: 0px;'>"+showData[2]+"</article></div></li></ul></div>");
+					$("#content").append("<div><ul class='ul_talk' style='padding:0; margin:0'><li class='tbox' ><div><span class='head'><img src='img/"+window.yourname+".jpg'></span></div><div><span class='arrow'><svg><path d='M50 0 L5 19 L4 20 L5 21 L50 40 Z' stroke-width='1' stroke='#FFFFFF' fill='#FFFFFF'></path></svg></span></div><div><article class='content' style='border-radius:5px;box-shadow: -1px 4px 2px -3px #999999; margin-bottom: 0px;'>"+showData[2]+"</article></div></li></ul></div>");
 				}else{ 
-				$("#content").append("<div><ul class='ul_talk' style='padding:0; margin:0'><li class='tbox' ><div><span class='head'><img src='"+showData[3]+"'></span></div><div><span class='arrow'><svg><path d='M50 0 L5 19 L4 20 L5 21 L50 40 Z' stroke-width='1' stroke='#FFFFFF' fill='#FFFFFF'></path></svg></span></div><div><article class='content' style='border-radius:5px;box-shadow: -1px 4px 2px -3px #999999; margin-bottom: 0px;'>"+showData[2]+"</article></div></li></ul></div>");
+					$("#content").append("<div><ul class='ul_talk' style='padding:0; margin:0'><li class='tbox' ><div><span class='head'><img src='"+showData[3]+"'></span></div><div><span class='arrow'><svg><path d='M50 0 L5 19 L4 20 L5 21 L50 40 Z' stroke-width='1' stroke='#FFFFFF' fill='#FFFFFF'></path></svg></span></div><div><article class='content' style='border-radius:5px;box-shadow: -1px 4px 2px -3px #999999; margin-bottom: 0px;'>"+showData[2]+"</article></div></li></ul></div>");
 				}
 			}
 		}
@@ -184,22 +184,39 @@ function keydownEvent() {
         send_picture();
 	}
 }
+
 angular.module('app', [])
 .controller('managefootController',function($scope,$document,$rootScope){
 		angular.element(document.querySelector('#'+$rootScope.selectScreen)).css('color','#33CC00');	
-		$rootScope.showScreen($rootScope.selectScreen);//屏幕显示	
+		$rootScope.showScreen();//屏幕显示	
 })
-.directive('chatContent', [function(){
+.directive('fchatHeader', [function(){
+	return {
+		templateUrl: 'tmpl/header.html',
+		restrict: "A",
+		replace: true,
+		link: function(scope, element, attrs){	
+		}
+	};
+}])
+.directive('chatContent', ['$rootScope',function($rootScope){
 	return {
 		templateUrl: 'tmpl/manage-body/content.html',
 		restrict: "A",
 		replace: true,
+		scope: {
+			users: '=',
+		},
 		controller: ['$scope', '$document','$element', '$attrs',function($scope,$document,$element,$attrs){
-			$scope.items=[
+			/*$scope.items=[
 				 {uname:'haoba',picture:'6.jpg',title:'hello',date:'早上09:56',newmsg:'true',content:'hello a day begin'}
 				,{uname:'mashengxi',picture:'hahaha.jpg',title:'工作群',date:'早上11:26',newmsg:'false',content:'他说又加需求'}
 				,{uname:'hahaha',picture:'6.jpg',title:'活动',date:'早上12:16',newmsg:'true',content:'出去玩吧，好久没出去了。'}
-			];	
+			];	*/
+
+			//useritems
+			//console.log("---->");
+			//console.log(JSON.stringify($rootScope.useritems,'\t'));
 		}],
 		link: function(scope, element, attrs){	
 		}
@@ -211,11 +228,11 @@ angular.module('app', [])
 		restrict: "A",
 		replace: true,
 		link: function(scope, element, attrs){	
-			scope.users=[
-				 {picture:'haoba.jpg',title:'张三',uname:'haoba'}
-				,{picture:'hahaha.jpg',title:'李四',uname:'mashengxi'}
-				,{picture:'hahaha.jpg',title:'马大',uname:'hahaha'}
-			];	
+			/*scope.users=[
+				 {picture:'haoba.jpg',title:'好吧',uname:'haoba'}
+				,{picture:'hahaha.jpg',title:'麻生希',uname:'mashengxi'}
+				,{picture:'hahaha.jpg',title:'哈哈哈',uname:'hahaha'}
+			];	*/
 		}
 	};
 }])
@@ -260,12 +277,12 @@ angular.module('app', [])
 		restrict: "E",
 		replace: true,
 		controller: 'managefootController',
-		link: function(scope, element, attrs){//这里不能用rootScope
+		link: function(scope, element, attrs){
 			element.find('a').on('click', function(e){
 				$rootScope.selectScreen=e.currentTarget.id;
 				element.find('a').css('color','#999999');
 				angular.element(document.querySelector('#'+$rootScope.selectScreen)).css('color','#33CC00');//底层菜单
-				$rootScope.showScreen($rootScope.selectScreen);
+				$rootScope.showScreen();
 			})
 		}
 	};
@@ -276,6 +293,7 @@ angular.module('app', [])
 		restrict: "A",
 		replace: true,
 		link: function(scope, element, attrs){
+
 		}
 	};
 }])
@@ -289,19 +307,23 @@ angular.module('app', [])
 	};
 }])
 .run(['$rootScope', function($rootScope){
-	$rootScope.showScreen = function(sdiv){//主页面切换
+	$rootScope.mainscreen=0;//是否是主页面
+	$rootScope.showScreen = function(){//主页面切换
+		//console.log("showScreen--->");
 		// angular.element(document.querySelector('#fchat-div')).css('display','none');
 		$('#fchat-div').css('display','none');
 		$('#users-div').css('display','none');
 		$('#discover-div').css('display','none');
 		$('#myself-div').css('display','none');
-		$('#'+sdiv+'-div').css('display','block');
+		$('#'+$rootScope.selectScreen+'-div').css('display','block');
 	};
 	$rootScope.showmanage = function(){//显示主页面
+		$rootScope.mainscreen=0;
 		$('#manage-div').css('display','block');
 		$('#message-div').css('display','none');
 	};
 	$rootScope.showmsg = function(toname){//显示消息页面
+		$rootScope.mainscreen=1;
 		window.yourname=toname;
 		console.log("showMsg---->"+window.yourname+"  "+window.myname);
 		$('#manage-div').css('display','none');
@@ -317,6 +339,39 @@ angular.module('app', [])
 	        $("#show").html(replace_em(str));
 	    });
 	};
-	
+	$rootScope.useritems=[];
+	$rootScope.loadData=function(){
+		$.ajax({
+		    url:'jsp/user.jsp',
+		    type:'POST', 
+		    async:false,    //这里必须是false，否则$rootScope.useritems不出来 ？？？
+		    data:{
+		        myname:window.myname,age:25
+		    },
+		    timeout:5000,   
+		    dataType:'json',    //json/xml/html/script/jsonp/text
+		    beforeSend:function(xhr){
+		        //console.log(xhr)
+		        //console.log('发送前')
+		    },
+		    success:function(data,textStatus,jqXHR){
+		    	//$scope.useritems;
+		    	$rootScope.useritems=data;//JSON.parse(JSON.stringify(data));
+		        //console.log(JSON.stringify($rootScope.useritems,'\t'))
+		        //console.log(textStatus)
+		        //console.log(jqXHR)
+		    },
+		    error:function(xhr,textStatus){
+		        console.log('错误')
+		        console.log(xhr)
+		        console.log(textStatus)
+		    },
+		    complete:function(){
+		        //console.log('结束')
+		    }
+		});
+	}
+	$rootScope.loadData();
 	$rootScope.selectScreen='fchat';
+	
 }])

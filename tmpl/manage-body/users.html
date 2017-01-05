@@ -1,16 +1,16 @@
-<div class="row" style="padding-top:8px"  ng-repeat="item in users">  
+<div class="row" style="padding-top:8px"  ng-repeat="item in useritems">  
 <!--列表循环开始-->
 	<div class="col-xs-12" style="padding-bottom:6px;" >  
-		<a href="msg.html?uid={{item.uname}}&mid={{myname}}"> 
+		<a ng-click='showmsg(item.username)' href="#" > <!--href="msg.html?uid={{item.uname}}&mid={{myname}}"-->
 			<div class="col-xs-2" >
-				<img ng-src="img/{{item.picture || '/websocketchat/chat/img/00.jpg'}} " class="widget-image image-circle" style="width:30px;height:30px; border-radius:0px"><!--for no 404-->
+				<img ng-src="img/{{item.img_url || '00.jpg'}} " class="widget-image image-circle" style="width:30px;height:30px; border-radius:0px"><!--for no 404-->
 			</div>    
 			<div class="col-xs-10">
 				<span class="pull-left" style="padding-left:2px; font-size:16px; color:#000000">
-					<b>{{item.title}}</b>
+					<b>{{item.nickname}}</b>
 					<font style="font-size:12px; color:#CCCCCC"></font>
 				</span>
-				<!--span class="pull-right" style="float:right;padding-top:5px; color:#CCCCCC; font-size:8px">A</span-->
+				<span class="pull-right" style="float:right;padding-top:5px; color:#CCCCCC; font-size:8px">A</span>
 				
 			</div>
 		</a>
