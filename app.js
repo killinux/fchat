@@ -42,12 +42,13 @@ function startServer() {
     if(window.location.href.split(":")[0]=="https"){
         //url="wss://killinux.com:80/websocketchat/hao/msg";
         //url="wss://192.168.8.104:80/websocketchat/hao/msg";
-        url="wss://"+window.location.hostname+":80/fchat/hao/msg";
+        //url="wss://"+window.location.hostname+":80/fchat/hao/msg";
+        url="wss://"+window.location.hostname+":8443/fchat/hao/msg";
 
     }else{
         //url="ws://killinux.com:8080/websocketchat/hao/msg";
         //url="ws://"+window.location.hostname+":8080/websocketchat/hao/msg";
-        url="ws://"+window.location.hostname+":8080/fchat/hao/msg";
+        url="ws://"+window.location.hostname+"/fchat/hao/msg";
     }
     console.log("websocket url:"+url);
 	//if https ,websocket is wss
@@ -388,15 +389,19 @@ angular.module('app', [])
 		    url: "jsp/dologin.jsp?u="+user_name+"&p="+user_password,
 			success: function(result){
 	 	     	 console.log("result:"+JSON.stringify(result));
+	 	     	 //alert("result:"+JSON.stringify(result));
 		 	     if(result=='err'){
-		 	     	console.log("用户名或昵称已经被注册啦！");
+			 	     	console.log("用户名或昵称已经被注册啦！");
 			 	 }else{
 			 	 	console.log("登录成功");
+					//alert("success begin");
 			 	 	window.myname=result['username'];
-			 	 	localStorage.userObject=result;
+			 	 	//localStorage.userObject=result;//can not use for ios safri
+			 	 	localStorage.setItem['userObject']=result;
 			 	 	$rootScope.loadData();
 					$rootScope.selectScreen='fchat';
 					$rootScope.showScreen() ;
+					//alert("success end");
 			 	 }
 		 	 } ,
 			error: function(e) { 

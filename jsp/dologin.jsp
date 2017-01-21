@@ -2,6 +2,7 @@
 <%
 System.out.println("dologin.jsp");
 //String RL = "jdbc:mysql://"+request.getServerName()+":3306/haochat?useUnicode=true&characterEncoding=utf-8&user=root&password=Haoning123";
+System.out.println("request.getServerName():"+request.getServerName());
 String RL = "jdbc:mysql://"+request.getServerName()+":3308/haochat?useUnicode=true&characterEncoding=utf-8&user=root&password=Haoning123";
 String u=request.getParameter("u");
 String p=request.getParameter("p");

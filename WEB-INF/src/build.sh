@@ -1,7 +1,8 @@
 #!/bin/sh
 rm -rf ../classes/*
 cp *.properties ../classes
-export JAVA_HOME=/usr/local/jdk1.6.0_45
+#export JAVA_HOME=/usr/local/jdk1.6.0_45
+export JAVA_HOME=/usr/local/jdk1.8.0_101
 export CLASSPATH=$JAVA_HOME/jre/lib/rt.jar:.
 export PATH=$JAVA_HOME/bin:$PATH
 #export root_lib=/usr/local/apache-tomcat-7.0.62/webapps/websocketchat/WEB-INF/lib
