@@ -371,7 +371,7 @@ angular.module('app', [])
 		        //console.log(jqXHR)
 		    },
 		    error:function(xhr,textStatus){
-		        console.log('错误')
+		        console.log('user.jsp 错误')
 		        console.log(xhr)
 		        console.log(textStatus)
 		    },
@@ -396,11 +396,11 @@ angular.module('app', [])
 			 	 	console.log("登录成功");
 					//alert("success begin");
 			 	 	window.myname=result['username'];
-			 	 	//localStorage.userObject=result;//can not use for ios safri
-			 	 	localStorage.setItem['userObject']=result;
 			 	 	$rootScope.loadData();
 					$rootScope.selectScreen='fchat';
 					$rootScope.showScreen() ;
+			 	 	//localStorage.userObject=result;//can not use for ios safri
+			 	 	localStorage.setItem['userObject']=result;
 					//alert("success end");
 			 	 }
 		 	 } ,

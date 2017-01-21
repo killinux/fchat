@@ -1,9 +1,9 @@
 <%@ page language="java" import="java.sql.*,java.util.*,net.sf.json.JSONObject,com.hao.object.User" contentType="text/html; charset=utf-8" %>
 <%
 System.out.println("dologin.jsp");
-//String RL = "jdbc:mysql://"+request.getServerName()+":3306/haochat?useUnicode=true&characterEncoding=utf-8&user=root&password=Haoning123";
+String RL = "jdbc:mysql://"+request.getServerName()+":3306/haochat?useUnicode=true&characterEncoding=utf-8&user=root&password=haoning";
 System.out.println("request.getServerName():"+request.getServerName());
-String RL = "jdbc:mysql://"+request.getServerName()+":3308/haochat?useUnicode=true&characterEncoding=utf-8&user=root&password=Haoning123";
+//String RL = "jdbc:mysql://"+request.getServerName()+":3308/haochat?useUnicode=true&characterEncoding=utf-8&user=root&password=Haoning123";
 String u=request.getParameter("u");
 String p=request.getParameter("p");
 String sqlStr = "select * from users where username='"+u+"' and passwd='"+p+"'";
