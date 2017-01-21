@@ -11,3 +11,9 @@ https://192.168.8.104:80/fchat/index.html
 face
 http://192.168.8.104:8080/fchat/index.html
 noface
+app.invoke_queue
+compile
+link
+priority
+controller as a1
+

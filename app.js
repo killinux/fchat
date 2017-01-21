@@ -1,4 +1,5 @@
 //console.log("from app.js");
+
 function replace_em(str){
     str = str.replace(/\</g,'&lt;');
     str = str.replace(/\>/g,'&gt;');
@@ -12,15 +13,16 @@ function biaoqing_hi(){
 function getQueryString(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
     var r = window.location.search.substr(1).match(reg);
-    if (r != null) return unescape(r[2]); return null;
+    if (r != null) return unescape(r[2]); 
+    return null;
 }
 
 var ws = null;
 window.myname =getQueryString('mid');
-if(window.myname==null)window.myname='haoba';
+
 console.log("myname:"+window.myname);
-window.yourname = 'haoba';
-console.log("yourname:"+window.yourname);
+//window.yourname = 'haoba';
+//console.log("yourname:"+window.yourname);
 
 function log(text) {
 	console.log(text);
@@ -39,10 +41,12 @@ function startServer() {
 	var url ="ws://killinux.com:8443/websocketchat/hao/msg";
     if(window.location.href.split(":")[0]=="https"){
         //url="wss://killinux.com:80/websocketchat/hao/msg";
-        url="wss://192.168.8.104:80/websocketchat/hao/msg";
+        //url="wss://192.168.8.104:80/websocketchat/hao/msg";
+        url="wss://"+window.location.hostname+":80/websocketchat/hao/msg";
+
     }else{
         //url="ws://killinux.com:8080/websocketchat/hao/msg";
-        url="ws://192.168.8.104:8080/websocketchat/hao/msg";
+        url="ws://"+window.location.hostname+":8080/websocketchat/hao/msg";
     }
     console.log("websocket url:"+url);
 	//if https ,websocket is wss
@@ -344,7 +348,7 @@ angular.module('app', [])
 		$.ajax({
 		    url:'jsp/user.jsp',
 		    type:'POST', 
-		    async:false,    //这里必须是false，否则$rootScope.useritems不出来 ？？？
+		    async:true,    //如果是false，$rootScope.useritems不出来，如果是true，必须用$apply
 		    data:{
 		        myname:window.myname,age:25
 		    },
@@ -356,7 +360,10 @@ angular.module('app', [])
 		    },
 		    success:function(data,textStatus,jqXHR){
 		    	//$scope.useritems;
-		    	$rootScope.useritems=data;//JSON.parse(JSON.stringify(data));
+		    	$rootScope.$apply(function () {
+			     	$rootScope.useritems=data;
+			    });
+		    	//$rootScope.useritems=data;//JSON.parse(JSON.stringify(data));
 		        //console.log(JSON.stringify($rootScope.useritems,'\t'))
 		        //console.log(textStatus)
 		        //console.log(jqXHR)
@@ -371,7 +378,39 @@ angular.module('app', [])
 		    }
 		});
 	}
-	$rootScope.loadData();
-	$rootScope.selectScreen='fchat';
-	
+	$rootScope.login=function(){
+		var user_name =document.getElementById("user_name").value;
+		var user_password=$("#user_password").val();
+		console.log("login:"+user_name+"  "+user_password);
+		$.ajax({
+		    type: 'POST',
+		    url: "jsp/dologin.jsp?u="+user_name+"&p="+user_password,
+			success: function(result){
+	 	     	 console.log("result:"+JSON.stringify(result));
+		 	     if(result=='err'){
+		 	     	console.log("用户名或昵称已经被注册啦！");
+			 	 }else{
+			 	 	console.log("登录成功");
+			 	 	window.myname=result['username'];
+			 	 	localStorage.userObject=result;
+			 	 	$rootScope.loadData();
+					$rootScope.selectScreen='fchat';
+					$rootScope.showScreen() ;
+			 	 }
+		 	 } ,
+			error: function(e) { 
+				console.log("用户名或密码不对");
+				console.log(e); 
+			},
+		    dataType: "json"
+		});
+	}
+	if(window.myname==null){
+		$rootScope.selectScreen='myself';
+		$rootScope.showScreen() ;
+	}else{
+		$rootScope.loadData();
+		$rootScope.selectScreen='fchat';
+		$rootScope.showScreen() ;
+	}	
 }])
