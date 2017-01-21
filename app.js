@@ -42,11 +42,12 @@ function startServer() {
     if(window.location.href.split(":")[0]=="https"){
         //url="wss://killinux.com:80/websocketchat/hao/msg";
         //url="wss://192.168.8.104:80/websocketchat/hao/msg";
-        url="wss://"+window.location.hostname+":80/websocketchat/hao/msg";
+        url="wss://"+window.location.hostname+":80/fchat/hao/msg";
 
     }else{
         //url="ws://killinux.com:8080/websocketchat/hao/msg";
-        url="ws://"+window.location.hostname+":8080/websocketchat/hao/msg";
+        //url="ws://"+window.location.hostname+":8080/websocketchat/hao/msg";
+        url="ws://"+window.location.hostname+":8080/fchat/hao/msg";
     }
     console.log("websocket url:"+url);
 	//if https ,websocket is wss

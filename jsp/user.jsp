@@ -2,7 +2,8 @@
 <%
 //Thread.sleep(2000);//模拟延迟  测试异步;
 //String RL = "jdbc:mysql://192.168.8.104:3306/haochat?useUnicode=true&characterEncoding=utf-8&user=root&password=Haoning123";
-String RL = "jdbc:mysql://"+request.getServerName()+":3306/haochat?useUnicode=true&characterEncoding=utf-8&user=root&password=Haoning123";
+//String RL = "jdbc:mysql://"+request.getServerName()+":3306/haochat?useUnicode=true&characterEncoding=utf-8&user=root&password=Haoning123";
+String RL = "jdbc:mysql://"+request.getServerName()+":3308/haochat?useUnicode=true&characterEncoding=utf-8&user=root&password=Haoning123";
 
 String myname=request.getParameter("myname");
 //String sqlStr = "select * from users where id in (select fid from friend where uid='"+uid+"');";
