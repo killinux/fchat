@@ -17,3 +17,4 @@ nohup python -m rasa_nlu.server -c sample_configs/config_jieba_mitie_sklearn.yml
 
 
 http://www.hackernel.com:8081/fchat/bot.html
+![bot](img/bot.png)
