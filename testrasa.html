@@ -1,0 +1,29 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>rasa_nlu</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="js/json.js"></script>
+<script type="text/javascript" src="js/jsonpath.js"></script>
+</head>
+<body>
+<h1>This is an example of JavaScript with JSONPath for rasa_nlu</h1>
+<script type="text/javascript">
+function rasa_nlu(sendtext){
+    //var thisjson = JSON.stringify({"q":"我想点外卖", "project": "default", "model": "model_20200806-135909"});
+    var thisjson = JSON.stringify({q:sendtext, project: 'default', model:' model_20200806-135909'});
+    fetch("http://212.129.249.212:5000/parse", 
+        {method:'POST',mode:"cors",headers:new Headers({'Content-Type': 'application/x-www-form-urlencoded',})
+         ,body: thisjson
+        })
+    .then(response => response.json())
+    .then(data =>{
+        console.log("nlu.json:");
+        console.log(JSON.stringify(data));
+        console.log(data.intent.name);
+    })
+    .catch(e => console.log("Oops, error", e))
+}
+rasa_nlu("我想点外卖");
+</script>
+</body>
+</html>

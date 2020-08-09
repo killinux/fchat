@@ -48,7 +48,8 @@ function startServer() {
     }else{
         //url="ws://killinux.com:8080/websocketchat/hao/msg";
         //url="ws://"+window.location.hostname+":8080/websocketchat/hao/msg";
-        url="ws://"+window.location.hostname+"/fchat/hao/msg";
+        //url="ws://"+window.location.hostname+"/fchat/hao/msg";
+        url="ws://"+window.location.hostname+":8081/fchat/hao/msg";
     }
     console.log("websocket url:"+url);
 	//if https ,websocket is wss

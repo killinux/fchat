@@ -1,7 +1,7 @@
 <%@ page language="java" import="java.sql.*,java.util.*,net.sf.json.JSONObject,com.hao.object.User" contentType="text/html; charset=utf-8" %>
 <%
 System.out.println("dologin.jsp");
-String RL = "jdbc:mysql://"+request.getServerName()+":3306/haochat?useUnicode=true&characterEncoding=utf-8&user=root&password=haoning";
+String RL = "jdbc:mysql://"+request.getServerName()+":3306/haochat?useUnicode=true&characterEncoding=utf-8&user=root&password=Haohao123!@#";
 System.out.println("request.getServerName():"+request.getServerName());
 //String RL = "jdbc:mysql://"+request.getServerName()+":3308/haochat?useUnicode=true&characterEncoding=utf-8&user=root&password=Haoning123";
 String u=request.getParameter("u");
@@ -31,7 +31,7 @@ try {
 	st.close();
 	con.close();
 } catch (Exception err) {
-	out.println("err");
+	out.println("err!");
 	err.printStackTrace();
 }
 %>

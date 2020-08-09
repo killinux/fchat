@@ -1,7 +1,9 @@
 #mysql -uroot --default-character-set=utf8 -hkillinux.com -p
+#mysql -uroot --default-character-set=utf8  -pHaohao123!@#
 #GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY 'haoning';
 #FLUSH PRIVILEGES;
 #create database haochat;
+use haochat;
 create table users(
 	id int primary key auto_increment ,
 	username varchar(30) UNIQUE   ,

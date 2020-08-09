@@ -1,0 +1,42 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>JSONpath </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="js/json.js"></script>
+<script type="text/javascript" src="js/jsonpath.js"></script>
+</head>
+<body>
+<h1>This is an example of JavaScript with JSONPath</h1>
+<script type="text/javascript">
+fetch("dm.json").then(response => response.json())
+.then(data =>{
+//    console.log("dm.json:");
+//    console.log(data);
+var json= data;
+               result = "";
+               result += "---condition----"+jsonPath(json, "$.states[0]..condition").toJSONString() + "<br />";
+               result += "---$.states[0]..action[(@.length-1)]--"+jsonPath(json, "$.states[0]..action[(@.length-1)]").toJSONString() + "<br />";
+               //the last action in data
+               result += "---$.states[0]..action[-1:]--"+jsonPath(json, "$.states[0]..action[-1:]").toJSONString() + "<br />";
+               //the last action in data
+               result += "---$.states[0]..action[0,1]--"+jsonPath(json, "$.states[0]..action[0,1]").toJSONString() + "<br />";
+               //first two actions
+//               result += "---$..action[:3]"+jsonPath(json, "$..action[:3]").toJSONString() + "<br />";
+               //first three actions
+               result += "---interruptConfig--"+jsonPath(json, "$..interruptConfig").toJSONString() + "<br />";
+               result += "---$..conditionAndAct[?(@.actRef)---"+jsonPath(json, "$..conditionAndAct[?(@.actRef)]").toJSONString() + "<br />";
+               //or actions with genre
+               result +="---$..speeches[?(@.audioLen>0)]----"+ jsonPath(json, "$..speeches[?(@.audioLen>0)]").toJSONString() + "<br />";
+               // action
+               result += "---or----"+jsonPath(json, "$..[?(@.name == 'init_state'),?(@.name == 'kaichangbai')]").toJSONString() + "<br />";
+               //or
+               result += "---模糊查询jieshu----"+jsonPath(json, "$..[?(/jieshu/.test(@.name))]]").toJSONString() + "<br />";
+               //fuzzy
+//               result += "all----"+jsonPath(json, "$..*").toJSONString() + "\n";
+               // all members in the JSON document
+               document.write(result);
+})
+.catch(e => console.log("Oops, error", e))
+</script>
+</body>
+</html>

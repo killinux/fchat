@@ -1,0 +1,723 @@
+{
+  "templateName": "90c1b34f-6e7c-4169-a392-50b3de319f54",
+  "states": [
+    {
+      "name": "init_state",
+      "nextState": "kaichangbai",
+      "conditionAndAct": [
+        {
+          "booleanCondition": "@{intent} == 'want_waimai'",
+          "action": [
+            "state:kaichangbai",
+            "speech:want_waimaia1b260324458fc635d2146dda6872e50",
+            "trace:{id:sys_hangup_node;message:问候语}",
+            "trace:{id:last;message:flow_init_state}"
+          ]
+        },
+        {
+          "booleanCondition": "@{intent} == 'affirm'",
+          "action": [
+            "state:kaichangbai",
+            "speech:affirma1b260324458fc635d2146dda6872e50",
+            "trace:{id:sys_hangup_node;message:问候语}",
+            "trace:{id:last;message:flow_init_state}"
+          ]
+        },
+        {
+          "booleanCondition": "@{intent} == 'greet'",
+          "action": [
+            "state:kaichangbai",
+            "speech:greeta1b260324458fc635d2146dda6872e50",
+            "trace:{id:sys_hangup_node;message:问候语}",
+            "trace:{id:last;message:flow_init_state}"
+          ]
+        },
+        {
+          "booleanCondition": "@{intent} == 'restaurant_search'",
+          "action": [
+            "state:kaichangbai",
+            "speech:restaurant_searcha1b260324458fc635d2146dda6872e50",
+            "trace:{id:sys_hangup_node;message:问候语}",
+            "trace:{id:last;message:flow_init_state}"
+          ]
+        },
+        {
+          "booleanCondition": "@{signal} == '$timeout'",
+          "action": [],
+          "actRef": "timeout"
+        },
+        {
+          "booleanCondition": "@{triggerCnt} >= 1 && @{triggerCnt} <= 2147483647",
+          "action": [
+            "state:kaichangbai"
+          ]
+        }
+      ],
+      "dialogProperties": {
+        "interruptConfig": {
+          "canInterrupt": {
+            "default": true
+          },
+          "interruptCondition": "@{intent} != 'other'"
+        }
+      }
+    },
+    {
+      "name": "kaichangbai",
+      "nextState": "qingdaowanhui",
+      "conditionAndAct": [
+        {
+          "booleanCondition": "@{signal} == '$trans'",
+          "action": [
+            "trace:{id:sys_hangup_node;message:flow_[主流程][sys]开场白}",
+            "speech:kaichangbaia1b260324458fc635d2146dda6872e50",
+            "trace:{id:last;message:flow_kaichangbai}"
+          ]
+        },
+        {
+          "booleanCondition": "(@{intent} == 'negative_response' && #{var}.bank == '青岛')",
+          "action": [
+            "state:qingdaowanhui"
+          ]
+        },
+        {
+          "booleanCondition": "(@{intent} == 'negative_response' && IsStringMatch(#{var}.bank, '青岛', 'CONTAIN') == True)",
+          "action": [
+            "state:qitayinxingwanhui"
+          ]
+        },
+        {
+          "booleanCondition": "(@{intent} == 'positive_response')",
+          "action": [
+            "state:chenggongjieshu"
+          ]
+        },
+        {
+          "booleanCondition": "@{intent} == 'zhiyijiqiren'",
+          "action": [],
+          "actRef": "faq"
+        },
+        {
+          "booleanCondition": "@{intent} == 'repeat_response'",
+          "action": [],
+          "actRef": "repeat"
+        },
+        {
+          "booleanCondition": "@{intent} == 'other'",
+          "action": [],
+          "actRef": "other"
+        },
+        {
+          "booleanCondition": "@{signal} == '$timeout'",
+          "action": [],
+          "actRef": "timeout"
+        },
+        {
+          "booleanCondition": "@{signal} == '$asr_error'",
+          "action": [],
+          "actRef": "sys_error"
+        },
+        {
+          "booleanCondition": "@{intent} == 'neutral_response' || @{intent} == 'hello_response' || @{intent} == 'what_is_the_matter' || @{intent} == 'repeat_response' || @{intent} == 'reject_response' || @{intent} == 'user_busy'",
+          "action": [],
+          "actRef": "backup"
+        }
+      ],
+      "dialogProperties": {
+        "interruptConfig": {
+          "canInterrupt": {
+            "default": false
+          },
+          "interruptCondition": "@{intent} != 'other'"
+        },
+        "returnSpeech": "kaichangbai0a1d42531c79bcc76956f41ca8c87213"
+      }
+    },
+    {
+      "name": "qingdaowanhui",
+      "nextState": "qingdaowanhuichenggong",
+      "conditionAndAct": [
+        {
+          "booleanCondition": "@{signal} == '$trans'",
+          "action": [
+            "trace:{id:sys_hangup_node;message:flow_[主流程]青岛挽回}",
+            "speech:qingdaowanhui1b5b8c1f0ed6da651bd14c1dca72e5c0",
+            "trace:{id:last;message:flow_qingdaowanhui}"
+          ]
+        },
+        {
+          "booleanCondition": "(@{intent} == 'positive_response')",
+          "action": [
+            "state:qingdaowanhuichenggong"
+          ]
+        },
+        {
+          "booleanCondition": "(@{intent} == 'negative_response')",
+          "action": [
+            "state:shibaijieshu"
+          ]
+        },
+        {
+          "booleanCondition": "@{intent} == 'zhiyijiqiren'",
+          "action": [],
+          "actRef": "faq"
+        },
+        {
+          "booleanCondition": "@{intent} == 'repeat_response'",
+          "action": [],
+          "actRef": "repeat"
+        },
+        {
+          "booleanCondition": "@{intent} == 'other'",
+          "action": [],
+          "actRef": "other"
+        },
+        {
+          "booleanCondition": "@{signal} == '$timeout'",
+          "action": [],
+          "actRef": "timeout"
+        },
+        {
+          "booleanCondition": "@{signal} == '$asr_error'",
+          "action": [],
+          "actRef": "sys_error"
+        },
+        {
+          "booleanCondition": "@{intent} == 'neutral_response' || @{intent} == 'hello_response' || @{intent} == 'what_is_the_matter' || @{intent} == 'repeat_response' || @{intent} == 'reject_response' || @{intent} == 'user_busy'",
+          "action": [],
+          "actRef": "backup"
+        }
+      ],
+      "dialogProperties": {
+        "interruptConfig": {
+          "canInterrupt": {},
+          "interruptCondition": "@{intent} != 'other'"
+        },
+        "returnSpeech": "qingdaowanhui9d3c74280c64baaffdc40de08be2022f"
+      }
+    },
+    {
+      "name": "qitayinxingwanhui",
+      "nextState": "qitayinxingwanhuichenggong",
+      "conditionAndAct": [
+        {
+          "booleanCondition": "@{signal} == '$trans'",
+          "action": [
+            "trace:{id:sys_hangup_node;message:flow_[主流程]其他银行挽回}",
+            "speech:qitayinxingwanhui8c5c66299c8864251a3fd35afffb7ecd",
+            "trace:{id:last;message:flow_qitayinxingwanhui}"
+          ]
+        },
+        {
+          "booleanCondition": "(@{intent} == 'positive_response')",
+          "action": [
+            "state:qitayinxingwanhuichenggong"
+          ]
+        },
+        {
+          "booleanCondition": "(@{intent} == 'negative_response')",
+          "action": [
+            "state:qitabuganxingqu"
+          ]
+        },
+        {
+          "booleanCondition": "@{intent} == 'zhiyijiqiren'",
+          "action": [],
+          "actRef": "faq"
+        },
+        {
+          "booleanCondition": "@{intent} == 'repeat_response'",
+          "action": [],
+          "actRef": "repeat"
+        },
+        {
+          "booleanCondition": "@{intent} == 'other'",
+          "action": [],
+          "actRef": "other"
+        },
+        {
+          "booleanCondition": "@{signal} == '$timeout'",
+          "action": [],
+          "actRef": "timeout"
+        },
+        {
+          "booleanCondition": "@{signal} == '$asr_error'",
+          "action": [],
+          "actRef": "sys_error"
+        },
+        {
+          "booleanCondition": "@{intent} == 'neutral_response' || @{intent} == 'hello_response' || @{intent} == 'what_is_the_matter' || @{intent} == 'repeat_response' || @{intent} == 'reject_response' || @{intent} == 'user_busy'",
+          "action": [],
+          "actRef": "backup"
+        }
+      ],
+      "dialogProperties": {
+        "interruptConfig": {
+          "canInterrupt": {},
+          "interruptCondition": "@{intent} != 'other'"
+        },
+        "returnSpeech": "qitayinxingwanhui9d3c74280c64baaffdc40de08be2022f"
+      }
+    },
+    {
+      "name": "chenggongjieshu",
+      "nextState": "",
+      "conditionAndAct": [
+        {
+          "booleanCondition": "@{signal} == '$trans'",
+          "action": [
+            "trace:{id:sys_hangup_node;message:flow_[主流程]成功结束}",
+            "speech:chenggongjieshu2b416fb439a7835161f1ae09770c1343",
+            "signal:$hangup",
+            "tags:{tagName:感兴趣;triggerFlowName:[主流程]成功结束}"
+          ]
+        }
+      ],
+      "dialogProperties": {
+        "interruptConfig": {
+          "canInterrupt": {},
+          "interruptCondition": "@{intent} != 'other'"
+        }
+      }
+    },
+    {
+      "name": "qingdaowanhuichenggong",
+      "nextState": "",
+      "conditionAndAct": [
+        {
+          "booleanCondition": "@{signal} == '$trans'",
+          "action": [
+            "trace:{id:sys_hangup_node;message:flow_[主流程]青岛挽回成功}",
+            "state:chenggongjieshu"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "shibaijieshu",
+      "nextState": "",
+      "conditionAndAct": [
+        {
+          "booleanCondition": "@{signal} == '$trans'",
+          "action": [
+            "trace:{id:sys_hangup_node;message:flow_[主流程]失败结束}",
+            "speech:shibaijieshuff571594a721a0168351f376889afe15",
+            "signal:$hangup",
+            "tags:{tagName:不感兴趣;triggerFlowName:[主流程]失败结束}"
+          ]
+        }
+      ],
+      "dialogProperties": {
+        "interruptConfig": {
+          "canInterrupt": {},
+          "interruptCondition": "@{intent} != 'other'"
+        }
+      }
+    },
+    {
+      "name": "qitayinxingwanhuichenggong",
+      "nextState": "",
+      "conditionAndAct": [
+        {
+          "booleanCondition": "@{signal} == '$trans'",
+          "action": [
+            "trace:{id:sys_hangup_node;message:flow_[主流程]其他银行挽回成功}",
+            "state:chenggongjieshu"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "qitabuganxingqu",
+      "nextState": "",
+      "conditionAndAct": [
+        {
+          "booleanCondition": "@{signal} == '$trans'",
+          "action": [
+            "trace:{id:sys_hangup_node;message:flow_[主流程]其他不感兴趣}",
+            "state:shibaijieshu"
+          ]
+        }
+      ]
+    }
+  ],
+  "desc": "联名信用卡冯帆测试",
+  "speeches": {
+    "kaichangbaia1b260324458fc635d2146dda6872e50": {
+      "text": "办卡吗？",
+      "audioLen": 0,
+      "save": true
+    },
+    "want_waimaia1b260324458fc635d2146dda6872e50": {
+      "text": "你想点什么口味点呀",
+      "audioLen": 0,
+      "save": true
+    },
+    "affirma1b260324458fc635d2146dda6872e50": {
+      "text": "没有听懂您的意思呀,我还在学习中，对不起啦",
+      "audioLen": 0,
+      "save": true
+    },
+    "greeta1b260324458fc635d2146dda6872e50": {
+      "text": "你好呀，有什么可以帮您？",
+      "audioLen": 0,
+      "save": true
+    },
+    "restaurant_searcha1b260324458fc635d2146dda6872e50": {
+      "text": "您想要找个什么样点餐厅呢?",
+      "audioLen": 0,
+      "save": true
+    },
+    "kaichangbai0a1d42531c79bcc76956f41ca8c87213": {
+      "text": "想不想办卡呀\\(^o^)/~",
+      "audioLen": 0,
+      "save": true
+    },
+    "qingdaowanhui1b5b8c1f0ed6da651bd14c1dca72e5c0": {
+      "text": "青岛银行有优惠！！",
+      "audioLen": 0,
+      "save": true
+    },
+    "qingdaowanhui9d3c74280c64baaffdc40de08be2022f": {
+      "text": "到底办不办卡嘛！",
+      "audioLen": 0,
+      "save": true
+    },
+    "qitayinxingwanhui8c5c66299c8864251a3fd35afffb7ecd": {
+      "text": "其他银行有优惠！！",
+      "audioLen": 0,
+      "save": true
+    },
+    "qitayinxingwanhui9d3c74280c64baaffdc40de08be2022f": {
+      "text": "到底办不办卡嘛！",
+      "audioLen": 0,
+      "save": true
+    },
+    "chenggongjieshu2b416fb439a7835161f1ae09770c1343": {
+      "text": "好的给您发短信",
+      "audioLen": 0,
+      "save": true
+    },
+    "shibaijieshuff571594a721a0168351f376889afe15": {
+      "text": "那好吧再见",
+      "audioLen": 0,
+      "save": true
+    },
+    "repeat44c004bc7d54c9bbc3613ce4b1bcc52b": {
+      "text": "现在听得清吗？",
+      "audioLen": 0,
+      "save": false
+    },
+    "repeat6c0d68e9b27bae7fafc73556c233746a": {
+      "text": "不好意思，一会给您回电话吧，这边先挂了，再见！",
+      "audioLen": 0,
+      "save": false
+    },
+    "repeatead7dd7b03634fe16fcfd2d30ac809c5": {
+      "text": "不好意思，稍后我让客户经理回复您吧，祝您生活愉快，再见！",
+      "audioLen": 0,
+      "save": false
+    },
+    "othere1bdaf3ba6df4316d109770b79cfbe8e": {
+      "text": "啊？什么？",
+      "audioLen": 0,
+      "save": false
+    },
+    "otheraf518e5dc9e2e3cd18deacd4e9f69946": {
+      "text": "您看要不这样，这个问题我为您记录下来，稍后让我们同事给您回电好吗？",
+      "audioLen": 0,
+      "save": false
+    },
+    "otheread7dd7b03634fe16fcfd2d30ac809c5": {
+      "text": "不好意思，稍后我让客户经理回复您吧，祝您生活愉快，再见！",
+      "audioLen": 0,
+      "save": false
+    },
+    "timeoutcb0b92587a8da2634d15c848d7cfb8fc": {
+      "text": "嗯？",
+      "audioLen": 0,
+      "save": false
+    },
+    "timeout8a572016e77d2c0b8ab68730919abbf7": {
+      "text": "喂，听的到吗？",
+      "audioLen": 0,
+      "save": false
+    },
+    "timeout14bb0bdedc1691bd232b7f3025ce4888": {
+      "text": "不好意思，听不到您的声音，这边先挂了，再见！",
+      "audioLen": 0,
+      "save": false
+    },
+    "timeoutead7dd7b03634fe16fcfd2d30ac809c5": {
+      "text": "不好意思，稍后我让客户经理回复您吧，祝您生活愉快，再见！",
+      "audioLen": 0,
+      "save": false
+    },
+    "faq_48_nishijiqiren3d38db483d4eaed5be00ab690ce71fea": {
+      "text": "我是真人，你个憨憨！",
+      "audioLen": 0,
+      "save": true
+    }
+  },
+  "intents": [
+    "reject_response",
+    "hello_response",
+    "positive_response",
+    "zhiyijiqiren",
+    "user_busy",
+    "what_is_the_matter",
+    "negative_response",
+    "neutral_response",
+    "repeat_response"
+  ],
+  "variables": [
+    "bank"
+  ],
+  "actRef": [
+    {
+      "name": "sys_error",
+      "conditionAndAct": [
+        {
+          "booleanCondition": "@{signal} == '$asr_error' && @{triggerCnt} >= 1 && @{triggerCnt} <= 60",
+          "action": []
+        },
+        {
+          "booleanCondition": "@{signal} == '$asr_error' && @{triggerCnt} >= 61",
+          "action": [
+            "signal:$hangup"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "repeat",
+      "conditionAndAct": [
+        {
+          "booleanCondition": "@{triggerCnt} == 1",
+          "action": [
+            "repeat:$last_speech",
+            "trace:{id:sys_hangup_node;message:repeat_response_[异常]没听清}",
+            "trace:{id:last;message:repeat_cnt1}"
+          ]
+        },
+        {
+          "booleanCondition": "@{triggerCnt} == 2",
+          "action": [
+            "speech:repeat44c004bc7d54c9bbc3613ce4b1bcc52b",
+            "trace:{id:sys_hangup_node;message:repeat_response_[异常]没听清}",
+            "trace:{id:last;message:repeat_cnt2}"
+          ]
+        },
+        {
+          "booleanCondition": "@{triggerCnt} == 3",
+          "action": [
+            "speech:repeat6c0d68e9b27bae7fafc73556c233746a",
+            "signal:$hangup",
+            "trace:{id:sys_hangup_node;message:repeat_response_[异常]没听清}",
+            "trace:{id:last;message:repeat_cnt3}"
+          ]
+        },
+        {
+          "booleanCondition": "@{triggerCnt} >= 5 && @{triggerCnt} <= 2147483647",
+          "action": [
+            "speech:repeatead7dd7b03634fe16fcfd2d30ac809c5",
+            "signal:$hangup",
+            "trace:{id:sys_hangup_node;message:repeat_response_[异常]没听清}",
+            "trace:{id:last;message:repeat_cntN}"
+          ]
+        }
+      ],
+      "dialogProperties": {
+        "interruptConfig": {
+          "canInterrupt": {
+            "default": true,
+            "cnt3": true,
+            "cnt1": true,
+            "cnt2": true,
+            "cntN": true
+          },
+          "interruptCondition": "@{intent} != 'other'"
+        }
+      }
+    },
+    {
+      "name": "other",
+      "conditionAndAct": [
+        {
+          "booleanCondition": "@{triggerCnt} == 1",
+          "action": [
+            "speech:othere1bdaf3ba6df4316d109770b79cfbe8e",
+            "trace:{id:sys_hangup_node;message:other_[异常]全局未识别}",
+            "trace:{id:last;message:other_cnt1}"
+          ]
+        },
+        {
+          "booleanCondition": "@{triggerCnt} == 2",
+          "action": [
+            "speech:otheraf518e5dc9e2e3cd18deacd4e9f69946",
+            "state:$next_state",
+            "trace:{id:sys_hangup_node;message:other_[异常]全局未识别}",
+            "trace:{id:last;message:other_cnt2}"
+          ]
+        },
+        {
+          "booleanCondition": "@{triggerCnt} >= 10 && @{triggerCnt} <= 2147483647",
+          "action": [
+            "speech:otheread7dd7b03634fe16fcfd2d30ac809c5",
+            "signal:$hangup",
+            "trace:{id:sys_hangup_node;message:other_[异常]全局未识别}",
+            "trace:{id:last;message:other_cntN}"
+          ]
+        }
+      ],
+      "dialogProperties": {
+        "interruptConfig": {
+          "canInterrupt": {
+            "default": true,
+            "cnt1": true,
+            "cnt2": true,
+            "cntN": true
+          },
+          "interruptCondition": "@{intent} != 'other'"
+        }
+      }
+    },
+    {
+      "name": "timeout",
+      "conditionAndAct": [
+        {
+          "booleanCondition": "@{triggerCnt} == 1",
+          "action": [
+            "speech:timeoutcb0b92587a8da2634d15c848d7cfb8fc",
+            "trace:{id:sys_hangup_node;message:timeout_[异常]超时}",
+            "trace:{id:last;message:timeout_cnt1}"
+          ]
+        },
+        {
+          "booleanCondition": "@{triggerCnt} == 2",
+          "action": [
+            "speech:timeout8a572016e77d2c0b8ab68730919abbf7",
+            "trace:{id:sys_hangup_node;message:timeout_[异常]超时}",
+            "trace:{id:last;message:timeout_cnt2}"
+          ]
+        },
+        {
+          "booleanCondition": "@{triggerCnt} == 3",
+          "action": [
+            "speech:timeout14bb0bdedc1691bd232b7f3025ce4888",
+            "signal:$hangup",
+            "trace:{id:sys_hangup_node;message:timeout_[异常]超时}",
+            "trace:{id:last;message:timeout_cnt3}"
+          ]
+        },
+        {
+          "booleanCondition": "@{triggerCnt} >= 5 && @{triggerCnt} <= 2147483647",
+          "action": [
+            "speech:timeoutead7dd7b03634fe16fcfd2d30ac809c5",
+            "signal:$hangup",
+            "trace:{id:sys_hangup_node;message:timeout_[异常]超时}",
+            "trace:{id:last;message:timeout_cntN}"
+          ]
+        }
+      ],
+      "dialogProperties": {
+        "interruptConfig": {
+          "canInterrupt": {
+            "default": true,
+            "cnt3": true,
+            "cnt1": true,
+            "cnt2": true,
+            "cntN": true
+          },
+          "interruptCondition": "@{intent} != 'other'"
+        }
+      }
+    },
+    {
+      "name": "backup",
+      "conditionAndAct": [
+        {
+          "booleanCondition": "@{triggerCnt} == 1",
+          "action": [
+            "state:$next_state",
+            "trace:{id:sys_hangup_node;message:backup}",
+            "trace:{id:last;message:backup_cnt1}"
+          ]
+        },
+        {
+          "booleanCondition": "@{triggerCnt} == 2",
+          "action": [
+            "state:$next_state",
+            "trace:{id:sys_hangup_node;message:backup}",
+            "trace:{id:last;message:backup_cnt2}"
+          ]
+        },
+        {
+          "booleanCondition": "@{triggerCnt} >= 3 && @{triggerCnt} <= 2147483647",
+          "action": [
+            "signal:$hangup",
+            "trace:{id:sys_hangup_node;message:backup}",
+            "trace:{id:last;message:backup_cnt3}"
+          ]
+        }
+      ],
+      "dialogProperties": {
+        "interruptConfig": {
+          "canInterrupt": {
+            "default": true
+          },
+          "interruptCondition": "@{intent} != 'other'"
+        }
+      }
+    },
+    {
+      "name": "faq",
+      "conditionAndAct": [
+        {
+          "booleanCondition": "@{intent} == 'zhiyijiqiren'",
+          "action": [],
+          "actRef": "faq_48_nishijiqiren"
+        }
+      ]
+    },
+    {
+      "name": "faq_48_nishijiqiren",
+      "conditionAndAct": [
+        {
+          "booleanCondition": "@{triggerCnt} == 1",
+          "action": [
+            "speech:faq_48_nishijiqiren3d38db483d4eaed5be00ab690ce71fea",
+            "returnSpeech:{}",
+            "trace:{id:sys_hangup_node;message:faq_[知识库]你是机器人}",
+            "trace:{id:last;message:faq_48_nishijiqiren_cnt1}"
+          ]
+        },
+        {
+          "booleanCondition": "@{triggerCnt} == 2",
+          "action": [
+            "trace:{id:sys_hangup_node;message:faq_[知识库]你是机器人}",
+            "trace:{id:last;message:faq_48_nishijiqiren_cnt2}"
+          ]
+        },
+        {
+          "booleanCondition": "@{triggerCnt} >= 3 && @{triggerCnt} <= 2147483647",
+          "action": [
+            "trace:{id:sys_hangup_node;message:faq_[知识库]你是机器人}",
+            "trace:{id:last;message:faq_48_nishijiqiren_cnt3}"
+          ]
+        }
+      ],
+      "dialogProperties": {
+        "interruptConfig": {
+          "canInterrupt": {
+            "default": true,
+            "cnt3": true,
+            "cnt1": true,
+            "cnt2": true
+          },
+          "interruptCondition": "@{intent} != 'other'"
+        }
+      }
+    }
+  ]
+}
