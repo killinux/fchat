@@ -144,7 +144,8 @@ function sendMessage() {
 		//ws.send(myname+","+yourname+","+mytext);
         //loaddm("want_waimai");
        	ws.send(myname+"#"+yourname+"#"+mytext);//我说的话
-        rasa_nlu(mytext);
+        //rasa_nlu(mytext);
+        rasa_nlu_bert(mytext);
        //	ws.send(myname+"#bot#"+mytext);//机器人回复的话
 	}
 	document.getElementById("input-pj-text").value="";
@@ -263,6 +264,7 @@ function rasa_nlu(sendtext){
     //var thisjson = JSON.stringify({"q":"我想点外卖", "project": "default", "model": "model_20200806-135909"});
     var thisjson = JSON.stringify({q:sendtext, project: 'default', model:' model_20200806-135909'});
     fetch("http://212.129.249.212:5000/parse",
+//    fetch("http://www.hackernel.com:5500/model/parse",
         {method:'POST',mode:"cors",headers:new Headers({'Content-Type': 'application/x-www-form-urlencoded',})
          ,body: thisjson
         })
@@ -273,6 +275,21 @@ function rasa_nlu(sendtext){
         loaddm(rasa_nlu_intent);
     })
     .catch(e => console.log("rasa_nlu, error", e))
+}
+function rasa_nlu_bert(sendtext){//bert server:  https://github.com/killinux/rasa_bert
+    //var thisjson = JSON.stringify({q:sendtext, project: 'default', model:' model_20200806-135909'});
+    var thisjson = JSON.stringify({text:sendtext});
+    fetch("http://www.hackernel.com:5500/model/parse",
+        {method:'POST',mode:"cors",headers:new Headers({'Content-Type': 'application/x-www-form-urlencoded',})
+         ,body: thisjson
+        })
+    .then(response => response.json())
+    .then(data =>{
+        var rasa_nlu_intent = data.intent.name;
+        console.log("this intent is: "+rasa_nlu_intent);
+        loaddm(rasa_nlu_intent);
+    })
+    .catch(e => console.log("rasa_nlu_bert, error", e))
 }
 </script>
 </head>
